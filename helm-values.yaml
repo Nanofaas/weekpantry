@@ -1,0 +1,25 @@
+namespace:
+  create: false
+  name: weekpantry
+controlPlane:
+  image:
+    repository: ghcr.io/miciav/nanofaas/control-plane
+    tag: v0.22.0
+    pullPolicy: IfNotPresent
+  extraEnv:
+    - name: NANOFAAS_K8S_IMAGE_PULL_POLICY
+      value: IfNotPresent
+  persistence:
+    enabled: true
+    size: 1Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: '2'
+      memory: 2Gi
+prometheus:
+  create: false
+demos:
+  enabled: false

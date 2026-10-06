@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: weekpantry-register
+  namespace: weekpantry
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 300
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: register
+          image: weekpantry/function:dev
+          imagePullPolicy: IfNotPresent
+          command: [python, register.py]
+          env:
+            - name: FUNCTION_IMAGE
+              value: weekpantry/function:dev
+            - name: APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: weekpantry-db
+                  key: app-password
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: '1'
+              memory: 256Mi

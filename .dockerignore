@@ -1,0 +1,11 @@
+tests/
+evidence/
+*.md
+__pycache__/
+.venv/
+*.tar
+*.log
+kubeconfig
+.env
+.git/
+.github/

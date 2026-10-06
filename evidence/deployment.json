@@ -1,0 +1,110 @@
+{
+  "url": "http://10.83.80.138:30189",
+  "namespace": "weekpantry",
+  "frontendTrace": {
+    "executionId": "9e7eb50c-b653-46b7-b48d-35c8f7d7bbe1",
+    "htmlInBrowserResponse": true
+  },
+  "pods": [
+    {
+      "name": "fn-weekpantry-api-78c4b46cb-kk4tg",
+      "phase": "Running",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/weekpantry/function:20261006-en1"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fn-weekpantry-web-585787fdb4-9gmqf",
+      "phase": "Running",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/weekpantry/function:20261006-en1"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "nanofaas-control-plane-84568fb648-np4pn",
+      "phase": "Running",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/nanofaas/control-plane-jvm:recipe-d01f2c90c952402b9fed02a44c3adda6"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "2",
+            "memory": "2Gi"
+          },
+          "requests": {
+            "cpu": "250m",
+            "memory": "512Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "postgres-0",
+      "phase": "Running",
+      "ready": true,
+      "images": [
+        "postgres:17-alpine"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "512Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "weekpantry-edge-67d49fd666-vzr9t",
+      "phase": "Running",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/weekpantry/edge:20261006-en1"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "64Mi"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+test_crud_planning_shopping_retry_and_persistence (test_domain.DatabaseTest.test_crud_planning_shopping_retry_and_persistence) ... ok
+test_initialization_does_not_restore_deleted_seed_recipes (test_domain.DatabaseTest.test_initialization_does_not_restore_deleted_seed_recipes) ... ok
+test_replayed_mutation_does_not_overwrite_a_later_edit (test_domain.DatabaseTest.test_replayed_mutation_does_not_overwrite_a_later_edit) ... ok
+test_unknown_recipe_bad_dates_and_unknown_actions_are_domain_errors (test_domain.DatabaseTest.test_unknown_recipe_bad_dates_and_unknown_actions_are_domain_errors) ... ok
+test_rejects_invalid_or_nonfinite_quantities_and_blank_title (test_domain.DomainTest.test_rejects_invalid_or_nonfinite_quantities_and_blank_title) ... ok
+test_scales_portions_and_merges_names_but_keeps_units_separate (test_domain.DomainTest.test_scales_portions_and_merges_names_but_keeps_units_separate) ... ok
+test_smallest_supported_quantity_is_visible_in_one_portion (test_domain.DomainTest.test_smallest_supported_quantity_is_visible_in_one_portion) ... ok
+test_domain_status_and_idempotency_are_preserved (test_http.EdgeTest.test_domain_status_and_idempotency_are_preserved) ... ok
+test_malformed_json_and_unknown_routes_are_rejected (test_http.EdgeTest.test_malformed_json_and_unknown_routes_are_rejected) ... ok
+test_page_is_obtained_from_nanofaas_and_has_execution_evidence (test_http.EdgeTest.test_page_is_obtained_from_nanofaas_and_has_execution_evidence) ... ok
+test_platform_failure_envelope_is_not_a_successful_page (test_http.EdgeTest.test_platform_failure_envelope_is_not_a_successful_page) ... ok
+test_unavailable_platform_does_not_fall_back_to_local_html (test_http.EdgeTest.test_unavailable_platform_does_not_fall_back_to_local_html) ... ok
+test_nonobject_input_is_a_marked_domain_error (test_http.RuntimeTest.test_nonobject_input_is_a_marked_domain_error) ... ok
+test_replaces_a_function_whose_queue_configuration_changed (test_register.RegisterTest.test_replaces_a_function_whose_queue_configuration_changed) ... dispensa-web: DEPLOYMENT on k8s
+dispensa-api: DEPLOYMENT on k8s
+ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.230s
+
+OK

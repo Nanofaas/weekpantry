@@ -1,0 +1,107 @@
+{
+  "url": "http://10.83.80.138:30188",
+  "namespace": "dispensa",
+  "frontendTrace": {
+    "executionId": "a5592f7a-399c-4817-95da-eb6cfac0386a",
+    "status": "success",
+    "pollingRetainsOutput": false,
+    "htmlInBrowserResponse": true
+  },
+  "pods": [
+    {
+      "name": "dispensa-edge-7bd7c4956b-p2z29",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/dispensa/edge:20261006-afee85"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "64Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fn-dispensa-api-f465b9646-l565p",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/dispensa/function:20261006-v3"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fn-dispensa-web-65ff8b989f-s994m",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/dispensa/function:20261006-v3"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "nanofaas-control-plane-75b968dbb-f2lj8",
+      "ready": true,
+      "images": [
+        "127.0.0.1:5000/nanofaas/control-plane-jvm:recipe-d01f2c90c952402b9fed02a44c3adda6"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "2",
+            "memory": "2Gi"
+          },
+          "requests": {
+            "cpu": "250m",
+            "memory": "512Mi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "postgres-0",
+      "ready": true,
+      "images": [
+        "postgres:17-alpine"
+      ],
+      "resources": [
+        {
+          "limits": {
+            "cpu": "1",
+            "memory": "512Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    }
+  ]
+}

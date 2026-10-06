@@ -1,0 +1,26 @@
+[
+  {
+    "name": "weekpantry-web",
+    "image": "${FUNCTION_IMAGE}",
+    "executionMode": "DEPLOYMENT",
+    "runtimeMode": "HTTP",
+    "timeoutMs": 5000,
+    "concurrency": 16,
+    "queueSize": 100,
+    "maxRetries": 2,
+    "env": {"FUNCTION_ROLE": "web"},
+    "scalingConfig": {"strategy": "NONE", "minReplicas": 1, "maxReplicas": 1}
+  },
+  {
+    "name": "weekpantry-api",
+    "image": "${FUNCTION_IMAGE}",
+    "executionMode": "DEPLOYMENT",
+    "runtimeMode": "HTTP",
+    "timeoutMs": 10000,
+    "concurrency": 8,
+    "queueSize": 100,
+    "maxRetries": 2,
+    "env": {"FUNCTION_ROLE": "api", "PGHOST": "postgres", "PGDATABASE": "weekpantry", "PGUSER": "weekpantry"},
+    "scalingConfig": {"strategy": "NONE", "minReplicas": 1, "maxReplicas": 1}
+  }
+]

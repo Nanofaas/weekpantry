@@ -1,0 +1,164 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: weekpantry-container-defaults
+  namespace: weekpantry
+spec:
+  limits:
+    - type: Container
+      defaultRequest:
+        cpu: 50m
+        memory: 128Mi
+      default:
+        cpu: '1'
+        memory: 256Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weekpantry-db-init
+  namespace: weekpantry
+data:
+  init.sh: |
+    #!/bin/sh
+    set -eu
+    psql -v ON_ERROR_STOP=1 --username postgres --dbname postgres \
+      --set=app_password="$APP_PASSWORD" <<'SQL'
+    CREATE ROLE weekpantry LOGIN PASSWORD :'app_password';
+    CREATE DATABASE weekpantry OWNER weekpantry;
+    SQL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: weekpantry
+spec:
+  selector:
+    app: weekpantry-db
+  ports:
+    - port: 5432
+      name: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: weekpantry
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weekpantry-db
+  template:
+    metadata:
+      labels:
+        app: weekpantry-db
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: postgres
+          image: postgres:17-alpine
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: weekpantry-db
+                  key: admin-password
+            - name: APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: weekpantry-db
+                  key: app-password
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: '1'
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command: [pg_isready, -U, postgres, -d, postgres]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init
+          configMap:
+            name: weekpantry-db-init
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weekpantry-edge
+  namespace: weekpantry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weekpantry-edge
+  template:
+    metadata:
+      labels:
+        app: weekpantry-edge
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: edge
+          image: weekpantry/edge:dev
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NANOFAAS_URL
+              value: http://control-plane:8080
+          ports:
+            - containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: '1'
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weekpantry-web
+  namespace: weekpantry
+spec:
+  type: NodePort
+  selector:
+    app: weekpantry-edge
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30188

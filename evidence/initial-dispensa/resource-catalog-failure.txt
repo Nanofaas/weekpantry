@@ -1,0 +1,21 @@
+Observed on 2026-10-06 after restarting Dispensa's control-plane pod.
+Image: 127.0.0.1:5000/nanofaas/control-plane-jvm:recipe-d01f2c90c952402b9fed02a44c3adda6
+Live OpenAPI/application version: 0.22.0
+
+Caused by: tools.jackson.databind.exc.UnrecognizedPropertyException:
+Unrecognized property "requestWithinLimit"
+(class it.unimib.datai.nanofaas.common.model.ResourceSpec),
+not marked as ignorable (2 known properties: "requests", "limits")
+
+JSON chain:
+FunctionCatalogSnapshot["functions"] -> ArrayList[0] ->
+RegisteredFunction["spec"] -> FunctionSpec["resources"] ->
+ResourceSpec["requestWithinLimit"]
+
+FunctionCatalog.load -> FunctionRegistry constructor -> Spring startup failure.
+The control-plane pod enters CrashLoopBackOff. PostgreSQL and function pods
+remain running. This evidence deliberately excludes persisted credentials.
+
+Application workaround: omit resources in FunctionSpec and use a namespace
+LimitRange. This file records a finding; it does not claim other releases or
+the current source tree have the same defect.

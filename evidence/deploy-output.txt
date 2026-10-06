@@ -1,0 +1,51 @@
+curl: (22) The requested URL returned error: 404
+Downloading the upstream chart with authenticated GitHub access
+"prometheus-community" has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "prometheus-community" chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 2 charts
+Downloading prometheus-adapter from repo https://prometheus-community.github.io/helm-charts
+Downloading kube-state-metrics from repo https://prometheus-community.github.io/helm-charts
+Deleting outdated charts
+namespace/weekpantry created
+secret/weekpantry-db created
+Release "weekpantry" does not exist. Installing it now.
+NAME: weekpantry
+LAST DEPLOYED: Tue Oct  6 18:07:23 2026
+NAMESPACE: weekpantry
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+Nanofaas installed.
+
+Control-plane service:
+  control-plane.weekpantry:8080
+
+Port-forward (from your machine):
+  kubectl -n weekpantry port-forward svc/control-plane 8080:8080 8081:8081
+
+Invoke a function (example, replace the function name with any registered demo such as `word-stats-java` or `word-stats-go`):
+  curl -X POST http://localhost:8080/v1/functions/word-stats-go:invoke \
+    -H 'Content-Type: application/json' \
+    -d '{"input":{"text":"hello hello world"}}'
+limitrange/weekpantry-container-defaults created
+configmap/weekpantry-db-init created
+service/postgres created
+statefulset.apps/postgres created
+deployment.apps/weekpantry-edge created
+service/weekpantry-web created
+Waiting for 1 pods to be ready...
+partitioned roll out complete: 1 new pods have been updated...
+job.batch/weekpantry-register created
+job.batch/weekpantry-register condition met
+weekpantry-web: DEPLOYMENT on k8s
+weekpantry-api: DEPLOYMENT on k8s
+Waiting for deployment "fn-weekpantry-web" rollout to finish: 0 of 1 updated replicas are available...
+deployment "fn-weekpantry-web" successfully rolled out
+Waiting for deployment "fn-weekpantry-api" rollout to finish: 0 of 1 updated replicas are available...
+deployment "fn-weekpantry-api" successfully rolled out
+deployment "weekpantry-edge" successfully rolled out
+WeekPantry ready: http://<k3s-node-ip>:30189

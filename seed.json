@@ -1,0 +1,167 @@
+[
+  {
+    "id": "1ba5d777-b547-4824-88f5-71a9893bade1",
+    "title": "Tomato pasta",
+    "category": "vegetarian",
+    "minutes": 20,
+    "servings": 2,
+    "instructions": "Bring a pan of salted water to the boil. Warm the oil with the garlic, add the tomatoes and cook for 12 minutes. Drain the pasta al dente, toss with the sauce and finish with fresh basil.",
+    "ingredients": [
+      {
+        "name": "Pasta",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Tomatoes",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 1,
+        "unit": "pcs"
+      }
+    ]
+  },
+  {
+    "id": "1ba5d777-b547-4824-88f5-71a9893bade2",
+    "title": "Chickpea and spinach curry",
+    "category": "vegetarian",
+    "minutes": 30,
+    "servings": 2,
+    "instructions": "Soften the onion in the oil with curry powder to taste. Add the chickpeas and coconut milk and simmer for 15 minutes. Add the spinach for the final 5 minutes. Serve with basmati rice.",
+    "ingredients": [
+      {
+        "name": "Cooked chickpeas",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Spinach",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Coconut milk",
+        "quantity": 200,
+        "unit": "ml"
+      },
+      {
+        "name": "Rice",
+        "quantity": 160,
+        "unit": "g"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "pcs"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ]
+  },
+  {
+    "id": "1ba5d777-b547-4824-88f5-71a9893bade3",
+    "title": "Lemon chicken",
+    "category": "meat",
+    "minutes": 25,
+    "servings": 2,
+    "instructions": "Cut the chicken into bite-sized pieces and coat with flour. Brown in the oil, add the lemon juice and zest and a little water. Cover and cook for 10 minutes. Serve with boiled potatoes.",
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "quantity": 350,
+        "unit": "g"
+      },
+      {
+        "name": "Lemon",
+        "quantity": 1,
+        "unit": "pcs"
+      },
+      {
+        "name": "Flour",
+        "quantity": 30,
+        "unit": "g"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ]
+  },
+  {
+    "id": "1ba5d777-b547-4824-88f5-71a9893bade4",
+    "title": "Baked salmon",
+    "category": "fish",
+    "minutes": 35,
+    "servings": 2,
+    "instructions": "Arrange sliced courgettes on a baking tray. Add the salmon and dress with oil and lemon. Bake at 190 °C for about 20 minutes, checking that the fish is cooked through.",
+    "ingredients": [
+      {
+        "name": "Salmon",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Courgettes",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Lemon",
+        "quantity": 1,
+        "unit": "pcs"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ]
+  },
+  {
+    "id": "1ba5d777-b547-4824-88f5-71a9893bade5",
+    "title": "Sunday pancakes",
+    "category": "sweet",
+    "minutes": 20,
+    "servings": 4,
+    "instructions": "Whisk the flour, milk and eggs into a smooth batter. Heat a frying pan and add a small ladleful for each pancake. Flip when bubbles appear. Serve with seasonal fruit.",
+    "ingredients": [
+      {
+        "name": "Flour",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Milk",
+        "quantity": 250,
+        "unit": "ml"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "pcs"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 20,
+        "unit": "g"
+      }
+    ]
+  }
+]

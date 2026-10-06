@@ -1,0 +1,26 @@
+[
+  {
+    "check": "HTML served by NanoFaaS",
+    "executionId": "1070027e-783d-4008-a258-397fb4195363"
+  },
+  {
+    "check": "Create recipe with two ingredients",
+    "passed": true
+  },
+  {
+    "check": "Edit, plan three portions, merge ingredient names and persist shopping check",
+    "passed": true
+  },
+  {
+    "check": "Deletion conflict is visible; HTML in instructions is escaped",
+    "passed": true
+  },
+  {
+    "check": "Remove meal and delete recipe",
+    "passed": true
+  },
+  {
+    "check": "Mobile viewport 390px, no page overflow or JavaScript errors",
+    "passed": true
+  }
+]

@@ -1,0 +1,5 @@
+# Existing lab image; live OpenAPI reports 0.22.0. No platform rebuild or patch.
+controlPlane:
+  image:
+    repository: 127.0.0.1:5000/nanofaas/control-plane-jvm
+    tag: recipe-d01f2c90c952402b9fed02a44c3adda6

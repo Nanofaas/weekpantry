@@ -1,0 +1,38 @@
+namespace/dispensa unchanged
+Release "dispensa" has been upgraded. Happy Helming!
+NAME: dispensa
+LAST DEPLOYED: Tue Oct  6 16:22:49 2026
+NAMESPACE: dispensa
+STATUS: deployed
+REVISION: 4
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+NOTES:
+Nanofaas installed.
+
+Control-plane service:
+  control-plane.dispensa:8080
+
+Port-forward (from your machine):
+  kubectl -n dispensa port-forward svc/control-plane 8080:8080 8081:8081
+
+Invoke a function (example, replace the function name with any registered demo such as `word-stats-java` or `word-stats-go`):
+  curl -X POST http://localhost:8080/v1/functions/word-stats-go:invoke \
+    -H 'Content-Type: application/json' \
+    -d '{"input":{"text":"hello hello world"}}'
+limitrange/dispensa-container-defaults unchanged
+configmap/dispensa-db-init unchanged
+service/postgres unchanged
+statefulset.apps/postgres configured
+deployment.apps/dispensa-edge unchanged
+service/dispensa-web unchanged
+partitioned roll out complete: 1 new pods have been updated...
+job.batch "dispensa-register" deleted from dispensa namespace
+job.batch/dispensa-register created
+job.batch/dispensa-register condition met
+dispensa-web: already registered
+dispensa-api: already registered
+deployment "fn-dispensa-web" successfully rolled out
+deployment "fn-dispensa-api" successfully rolled out
+deployment "dispensa-edge" successfully rolled out
+Dispensa ready: http://<k3s-node-ip>:30188
