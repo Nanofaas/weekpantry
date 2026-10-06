@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/Nanofaas/weekpantry",
+  "visibility": "PUBLIC",
+  "verifiedCommit": "3ba0a0b",
+  "functionImageBuiltFromClone": true,
+  "pythonVersion": "3.12",
+  "integrationTests": 14,
+  "skippedTests": 0,
+  "standaloneDeployFromClone": true,
+  "unchangedFunctionsPreserved": true,
+  "chartRequiresUpstreamAccessOrLocalCopy": true
+}

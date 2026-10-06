@@ -222,3 +222,10 @@ flows. Its CLI abbreviates the displayed symbol list. The new app has no
 platform callers; script invocations in the README were checked explicitly
 because file impact remained UNKNOWN. A clean `scope all` check is also run
 after the initial commit.
+
+The public repository was created at https://github.com/Nanofaas/weekpantry.
+A fresh clone built the function image, passed all 14 integration tests without
+skips and deployed successfully using the pinned upstream chart. Both functions
+reported `already registered`; no definition replacement was needed. Results
+are in [fresh-clone-results.json](evidence/fresh-clone-results.json) and
+[redeploy-output.txt](evidence/redeploy-output.txt).
