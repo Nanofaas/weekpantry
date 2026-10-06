@@ -1,0 +1,38 @@
+namespace/weekpantry unchanged
+Release "weekpantry" has been upgraded. Happy Helming!
+NAME: weekpantry
+LAST DEPLOYED: Tue Oct  6 19:00:16 2026
+NAMESPACE: weekpantry
+STATUS: deployed
+REVISION: 3
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+NOTES:
+Nanofaas installed.
+
+Control-plane service:
+  control-plane.weekpantry:8080
+
+Port-forward (from your machine):
+  kubectl -n weekpantry port-forward svc/control-plane 8080:8080 8081:8081
+
+Invoke a function (example, replace the function name with any registered demo such as `word-stats-java` or `word-stats-go`):
+  curl -X POST http://localhost:8080/v1/functions/word-stats-go:invoke \
+    -H 'Content-Type: application/json' \
+    -d '{"input":{"text":"hello hello world"}}'
+limitrange/weekpantry-container-defaults unchanged
+configmap/weekpantry-db-init unchanged
+service/postgres unchanged
+statefulset.apps/postgres configured
+deployment.apps/weekpantry-edge unchanged
+service/weekpantry-web unchanged
+partitioned roll out complete: 1 new pods have been updated...
+job.batch "weekpantry-register" deleted from weekpantry namespace
+job.batch/weekpantry-register created
+job.batch/weekpantry-register condition met
+weekpantry-web: already registered
+weekpantry-api: already registered
+deployment "fn-weekpantry-web" successfully rolled out
+deployment "fn-weekpantry-api" successfully rolled out
+deployment "weekpantry-edge" successfully rolled out
+WeekPantry ready: http://<k3s-node-ip>:30189

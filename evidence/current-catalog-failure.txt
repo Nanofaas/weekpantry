@@ -1,0 +1,6 @@
+Caused by: java.lang.IllegalStateException: Cannot load function catalog: /var/lib/nanofaas/functions.json
+	at it.unimib.datai.nanofaas.controlplane.registry.FunctionCatalog.load(FunctionCatalog.java:62) ~[!/:0.22.0]
+Caused by: tools.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized property "requestWithinLimit" (class it.unimib.datai.nanofaas.common.model.ResourceSpec), not marked as ignorable (2 known properties: "requests", "limits")
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #288] (through reference chain: it.unimib.datai.nanofaas.controlplane.registry.FunctionCatalogSnapshot["functions"]->java.util.ArrayList[0]->it.unimib.datai.nanofaas.controlplane.registry.RegisteredFunction["spec"]->it.unimib.datai.nanofaas.common.model.FunctionSpec["resources"]->it.unimib.datai.nanofaas.common.model.ResourceSpec["requestWithinLimit"])
+	at tools.jackson.databind.exc.UnrecognizedPropertyException.from(UnrecognizedPropertyException.java:51) ~[jackson-databind-3.1.5.jar!/:3.1.5]
+	at it.unimib.datai.nanofaas.controlplane.registry.FunctionCatalog.load(FunctionCatalog.java:54) ~[!/:0.22.0]

@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "4f3d58b73a9cc3a81ba069ea21806e2e57c3857f",
+  "image": "127.0.0.1:5000/weekpantry/nanofaas-control-plane:4f3d58b7-20261006",
+  "imageDigest": "sha256:60e6fe3b7f1e7dc3ce47c3259aaef9e9a2f346bee0771bb0344d725cca691841",
+  "namespace": "weekpantry-audit",
+  "registrationStatus": 201,
+  "invocationStatus": 200,
+  "frontendExecutionId": "f58a2321-d886-4c27-997d-53e907f8a6b4",
+  "restartSucceeded": false,
+  "failure": "ResourceSpec.requestWithinLimit cannot be deserialised from the catalog"
+}

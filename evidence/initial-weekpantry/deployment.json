@@ -1,15 +1,13 @@
 {
   "url": "http://10.83.80.138:30189",
   "namespace": "weekpantry",
-  "sourceCommit": "4f3d58b73a9cc3a81ba069ea21806e2e57c3857f",
-  "controlPlaneImageDigest": "sha256:60e6fe3b7f1e7dc3ce47c3259aaef9e9a2f346bee0771bb0344d725cca691841",
   "frontendTrace": {
-    "executionId": "d1e7c9c2-9d34-4d1f-80c8-29d44bacde22",
+    "executionId": "9e7eb50c-b653-46b7-b48d-35c8f7d7bbe1",
     "htmlInBrowserResponse": true
   },
   "pods": [
     {
-      "name": "fn-weekpantry-api-6c77c6b945-nv46n",
+      "name": "fn-weekpantry-api-78c4b46cb-kk4tg",
       "phase": "Running",
       "ready": true,
       "images": [
@@ -29,7 +27,7 @@
       ]
     },
     {
-      "name": "fn-weekpantry-web-6bd7d79c87-4cwbs",
+      "name": "fn-weekpantry-web-585787fdb4-9gmqf",
       "phase": "Running",
       "ready": true,
       "images": [
@@ -49,11 +47,11 @@
       ]
     },
     {
-      "name": "nanofaas-control-plane-5d765d8d67-6hkrq",
+      "name": "nanofaas-control-plane-84568fb648-np4pn",
       "phase": "Running",
       "ready": true,
       "images": [
-        "127.0.0.1:5000/weekpantry/nanofaas-control-plane:4f3d58b7-20261006"
+        "127.0.0.1:5000/nanofaas/control-plane-jvm:recipe-d01f2c90c952402b9fed02a44c3adda6"
       ],
       "resources": [
         {

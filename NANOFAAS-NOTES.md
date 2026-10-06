@@ -3,14 +3,15 @@
 These notes record building a meaningful household web app using NanoFaaS,
 including frontend delivery, an external database and k3s deployment. The initial
 Italian prototype was named Dispensa; it was later extracted and translated as
-WeekPantry. Findings refer to the documentation and lab image actually tested,
-not every NanoFaaS version.
+WeekPantry. Findings refer to the documentation and images actually tested, not every
+NanoFaaS version. The initial cached image was later replaced and the main
+findings rechecked against source revision `4f3d58b7`; see the final section.
 
 ## Priorities
 
 | Priority | Evidence | Proposed improvement |
 | --- | --- | --- |
-| Blocking in the tested image | Restart fails with explicit resources in the catalog | Catalog round-trip tests for every optional field; fix serialisation |
+| Blocking in the fresh build at `4f3d58b7` | Restart fails with explicit resources in the catalog | Catalog round-trip tests for every optional field; fix serialisation |
 | High for web apps | POST invocation and JSON envelope only | Optional raw HTTP binding or an official adapter |
 | High for external databases | Secret references described, absent from live OpenAPI | envFrom/secretKeyRef without resolved passwords in the catalog |
 | Medium for updates | Image/env cannot be changed through PATCH | Update and reconcile the full definition |
@@ -229,3 +230,61 @@ skips and deployed successfully using the pinned upstream chart. Both functions
 reported `already registered`; no definition replacement was needed. Results
 are in [fresh-clone-results.json](evidence/fresh-clone-results.json) and
 [redeploy-output.txt](evidence/redeploy-output.txt).
+
+
+## 2026-10-06 — revalidation after identifying the old lab image
+
+Reusing the pre-existing image made the initial runtime observations insufficient
+as evidence about the current platform. Its Docker creation time was
+2026-09-30T14:43:03+02:00 and it had no OCI revision label; the recipe tag and
+version 0.22.0 did not identify its source commit. The initial findings remain
+historical evidence and are not upgraded merely by reading current source.
+
+GitHub main and the local checkout both pointed to
+`4f3d58b73a9cc3a81ba069ea21806e2e57c3857f`. A separate tracked-source build
+excluded agent and Claude files and left the NanoFaaS checkout unchanged.
+Gradle built the JVM control plane with modules `k8s-deployment-provider`,
+`async-queue` and `runtime-config`. The new image carries the full commit in
+`org.opencontainers.image.revision`:
+
+- Image: `127.0.0.1:5000/weekpantry/nanofaas-control-plane:4f3d58b7-20261006`.
+- Registry digest: `sha256:60e6fe3b7f1e7dc3ce47c3259aaef9e9a2f346bee0771bb0344d725cca691841`.
+- Docker creation time: 2026-10-06T18:55:08+02:00.
+- Reported application version: still 0.22.0, which is not a build identity.
+
+### Results and scope
+
+| Finding | Revalidation | Scope of the conclusion |
+| --- | --- | --- |
+| Catalog restart with explicit resources | Fresh image: registration 201, invocation 200, restart fails on `ResourceSpec.requestWithinLimit` | Reproduced in the JVM build of this exact commit |
+| POST invocation / JSON envelope | Current core OpenAPI explicitly specifies InvocationResponse rather than raw output | Still part of the current published contract |
+| Literal env values / no Secret reference fields | Current FunctionSpec uses string-valued env; core OpenAPI has no envFrom/secretKeyRef | Still a limitation of the current public function contract |
+| Image/env update through PATCH | Current FunctionUpdateRequest accepts only concurrency, timeout, retries and concurrencyControl | Still restricted in current source and OpenAPI |
+| Fragmented manifest/runtime documentation | Current function-definition and k8s guides retain the gaps and conflicting Secret/restartPolicy claims | Documentation observation, independent of the old image |
+| Chart availability | Earlier authenticated upstream check found a private source repository and no chart release asset at the tested version | Distribution observation; not a runtime defect |
+| External DB idempotency | App mutation ledger and replay remain necessary across gateway restarts | Application responsibility; a documentation/example opportunity |
+
+The catalog test used a separate `weekpantry-audit` namespace, no app database
+and a single frontend function with explicit requests/limits. Only the test
+control plane was deliberately restarted into the failure. Sanitised results
+and trace are in [current-catalog-results.json](evidence/current-catalog-results.json)
+and [current-catalog-failure.txt](evidence/current-catalog-failure.txt).
+The temporary namespace was removed after collecting evidence.
+
+The same fresh image replaced WeekPantry's control plane while retaining the
+LimitRange workaround and external PostgreSQL. Both functions were already
+registered; their definitions and the database were preserved. The current lab
+override now identifies the source-built image. Earlier English-app backend
+snapshots are retained under `evidence/initial-weekpantry`; initial Italian
+prototype evidence remains under `evidence/initial-dispensa`.
+
+After the update, both deployed-browser checks passed, including week navigation
+and cross-week overwrite regressions. Restarting PostgreSQL, API, frontend and
+control plane preserved data and shopping checks; durable replay preserved a
+later edit. All five application pods were Ready, and a new frontend execution
+ID confirmed that HTML still traversed NanoFaaS. Current snapshots are in
+[browser-results.json](evidence/browser-results.json),
+[persistence-results.json](evidence/persistence-results.json) and
+[deployment.json](evidence/deployment.json). The 14 Python application tests were
+not repeated for this platform-only image change; their earlier Python 3.12
+results remain dated evidence. No NanoFaaS product source was modified.

@@ -10,7 +10,8 @@ Secret contents, kubeconfig or database exports are included.
 - Namespace: `weekpantry`, independently deployed from this repository.
 - URL: <http://10.83.80.138:30189> (local lab network; not a public hosted service).
 - NodePort override: `NODE_PORT=30189`; the default manifest uses `30188`.
-- Reused control-plane image: see [control-plane-values.yaml](control-plane-values.yaml).
+- Current control plane: JVM image built from source revision `4f3d58b7`, with
+  an OCI revision label; see [control-plane-values.yaml](control-plane-values.yaml).
 
 Inspect it without changing your local kubectl context:
 
@@ -35,3 +36,37 @@ The original `dispensa` namespace, URL on port `30188` and its data were not
 deleted or migrated. Its Italian schema is separate from WeekPantry's English
 schema. The image-specific resource catalog failure is recorded in
 [initial-dispensa/resource-catalog-failure.txt](initial-dispensa/resource-catalog-failure.txt).
+
+
+## Source-pinned revalidation
+
+The current image was built from
+`4f3d58b73a9cc3a81ba069ea21806e2e57c3857f`, rather than reusing the earlier
+cached image. See [current-catalog-results.json](current-catalog-results.json)
+and [current-catalog-failure.txt](current-catalog-failure.txt) for the isolated
+resource-catalog restart failure, and
+[current-deploy-output.txt](current-deploy-output.txt) for the app update.
+The temporary audit namespace was deleted after the probe; it held no app data.
+
+Earlier English-app backend evidence is retained in
+[initial-weekpantry/](initial-weekpantry/). It records the cached image used
+before the user identified it as outdated. The main deployment and browser/
+persistence snapshots describe the source-built control plane after revalidation.
+The default public v0.22.0 image is not assumed to have this source revision.
+
+To build the control plane from that revision, use an upstream checkout with
+access to the private repository, then build and push for your node architecture:
+
+```bash
+git checkout 4f3d58b73a9cc3a81ba069ea21806e2e57c3857f
+./gradlew :control-plane:bootJar \
+  -PcontrolPlaneModules=k8s-deployment-provider,async-queue,runtime-config
+docker build --label org.opencontainers.image.revision=4f3d58b73a9cc3a81ba069ea21806e2e57c3857f \
+  -t registry.example/weekpantry/nanofaas-control-plane:4f3d58b7 \
+  platform/control-plane
+docker push registry.example/weekpantry/nanofaas-control-plane:4f3d58b7
+```
+
+Supply its repository/tag in a values file through `CONTROL_PLANE_VALUES`.
+Explicit resources remain omitted in the app's FunctionSpec until the catalog
+restart defect is fixed and that fix is verified.

@@ -75,7 +75,13 @@ the function specs and adapter manifests.
 `deploy.sh` downloads the upstream NanoFaaS Helm chart at commit
 `4f3d58b73a9cc3a81ba069ea21806e2e57c3857f` and builds its locked dependencies.
 It uses authenticated `gh` access if the anonymous download fails.
-The chart and default control-plane image are version `0.22.0`.
+The chart and default public image use the version tag `0.22.0`. That tag
+does not identify the source revision: the lab was revalidated using a new JVM
+image built from the exact pinned commit, with an OCI revision label. See
+[NANOFAAS-NOTES.md](NANOFAAS-NOTES.md#2026-10-06--revalidation-after-identifying-the-old-lab-image)
+and [evidence/control-plane-values.yaml](evidence/control-plane-values.yaml).
+The local registry image in that override is specific to the lab. Build and
+push your own control-plane image to repeat the check elsewhere.
 It creates resources in namespace `weekpantry`: random database credentials,
 a NanoFaaS Helm release, PostgreSQL, the adapter, and a function-registration Job.
 Existing Secrets and database data are preserved on subsequent deployments.
@@ -99,7 +105,8 @@ Optional deployment settings:
 
 A namespace `LimitRange` gives function containers requests of 50m CPU / 128Mi
 memory and limits of 1 CPU / 256Mi. The app omits `FunctionSpec.resources` because
-explicit resources broke catalog reload in the lab image. See
+explicit resources broke catalog reload in both the initial image and the
+fresh JVM build of the pinned commit. See
 [NANOFAAS-NOTES.md](NANOFAAS-NOTES.md) for the finding and workaround.
 
 Repeat the build and deploy with new tags to update the app. NanoFaaS PATCH does
